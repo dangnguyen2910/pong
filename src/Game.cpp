@@ -2,14 +2,16 @@
 
 Game::Game():
 window(sf::VideoMode(1000,700), "Pong"),
-player1(sf::Vector2f(120.f,50.f)),
-player2(sf::Vector2f(120.f,50.f))
+player1(sf::Vector2f{120.f,10.f}),
+player2(sf::Vector2f(120.f,10.f))
 {
+    window.setMouseCursorVisible(false);
+
     player1.rotate(90.f);
     player2.rotate(90.f);
 
-    player1.setPosition(sf::Vector2f(100.f, 100.f));
-    player2.setPosition(sf::Vector2f(300.f, 300.f));
+    player1.setPosition(sf::Vector2f(100.f, 300.f));
+    player2.setPosition(sf::Vector2f(900.f, 300.f));
 
 }
 
