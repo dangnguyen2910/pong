@@ -30,17 +30,53 @@ void Game::processEvents()
     sf::Event event;
     while (window.pollEvent(event))
     {
-        if (event.type == sf::Event::Closed)
+        switch (event.type)
         {
+        case sf::Event::Closed:
             window.close();
+            break;
+        case sf::Event::KeyPressed:
+            handlePlayerInput(event.key.code, true);
+            break;
+        case sf::Event::KeyReleased: 
+            handlePlayerInput(event.key.code, false);
+            break;
+
         }
     }
 }
 
 
+void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
+{ 
+    if (key == sf::Keyboard::W)
+        player1IsMovingUp = isPressed;
+    else if (key == sf::Keyboard::S)
+        player1IsMovingDown = isPressed;
+
+    if (key == sf::Keyboard::Up)
+        player2IsMovingUp = isPressed;
+    else if (key == sf::Keyboard::Down)
+        player2IsMovingDown = isPressed;
+}
+
+
 void Game::update()
 {
+    sf::Vector2f player1Movement; 
+    sf::Vector2f player2Movement;
+    float playerSpeed = 1.f;
+    if (player1IsMovingUp)
+        player1Movement.y -= playerSpeed;
+    if (player1IsMovingDown)
+        player1Movement.y += playerSpeed; 
+    if (player2IsMovingUp)
+        player2Movement.y -= playerSpeed;
+    if (player2IsMovingDown)
+        player2Movement.y += playerSpeed;
 
+    player1.move(player1Movement);
+    player2.move(player2Movement);
 }
 
 
