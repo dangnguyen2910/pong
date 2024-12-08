@@ -17,10 +17,13 @@ player2(sf::Vector2f(120.f,10.f))
 
 void Game::run()
 {
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (window.isOpen())
-    {
+    {  
+        sf::Time timePerFrame = clock.restart();
         processEvents();
-        update();
+        update(timePerFrame);
         render(); 
     }
 }
@@ -61,19 +64,20 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 }
 
 
-void Game::update()
+void Game::update(sf::Time deltaTime)
 {
     sf::Vector2f player1Movement; 
     sf::Vector2f player2Movement;
-    float playerSpeed = 1.f;
+    float playerSpeed = 300.f;
+
     if (player1IsMovingUp)
-        player1Movement.y -= playerSpeed;
+        player1Movement.y -= playerSpeed * deltaTime.asSeconds();
     if (player1IsMovingDown)
-        player1Movement.y += playerSpeed; 
+        player1Movement.y += playerSpeed * deltaTime.asSeconds(); 
     if (player2IsMovingUp)
-        player2Movement.y -= playerSpeed;
+        player2Movement.y -= playerSpeed * deltaTime.asSeconds();
     if (player2IsMovingDown)
-        player2Movement.y += playerSpeed;
+        player2Movement.y += playerSpeed * deltaTime.asSeconds();
 
     player1.move(player1Movement);
     player2.move(player2Movement);
